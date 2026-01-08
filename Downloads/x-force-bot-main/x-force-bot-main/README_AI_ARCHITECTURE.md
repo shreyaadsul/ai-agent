@@ -30,6 +30,7 @@ MongoDB is the **primary** database. It stores all business-critical data, inclu
 - Data consistency and durability.
 - Structured querying (e.g., "Find all late records for Employee X").
 
+
 ### B. Pinecone (Semantic Memory)
 Pinecone acts as the **Long-Term Semantic Memory**. It allows the agent to "remember" the *meaning* of past interactions without querying the entire database.
 
