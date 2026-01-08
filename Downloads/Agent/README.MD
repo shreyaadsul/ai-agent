@@ -1,4 +1,4 @@
-# 🤖 Basic AI Agent
+# 🤖 Modular AI Agent
 
 This project contains a **basic AI agent framework built in Python**.  
 It is designed to experiment with LLM-based agents, interactive workflows, testing, and error handling.  
