@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="min-width=1600"
+    />
+
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Roboto", sans-serif;
+        font-style: normal;
+      }
+
+      html, body {
+            background-color: black;
+            color: white; 
+      }
+
+      .clr-accent {
+        color: #20bead;
+      }
+
+      .clr-lightgray {
+        color: rgba(0, 0, 0, 0.4);
+      }
+
+      .bold {
+        font-weight: bold;
+      }
+
+      .fs-header {
+        font-size: 2rem;
+      }
+
+      .fs-subheader {
+        font-size: 1.85rem;
+      }
+
+      .fs-text {
+        font-size: 1.2rem;
+      }
+
+      .inline-block {
+        display: inline-block;
+      }
+
+      .report-icon {
+        position: absolute; 
+         top: 0em; 
+         right: 0.5em;
+      }
+
+      .attendance-container {
+        padding: 12px;
+        margin: 10px 0;
+      }
+
+      .table-container {
+        width: 100%;
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      th,
+      td {
+        padding: 10px;
+        text-align: left;
+      }
+
+      th {
+        background-color: rgba(32, 190, 173, 0.15);
+        border: 1px solid #ddd;
+        width: 20px;
+      }
+
+      tr {
+        border: 1px solid #ddd;
+      }
+
+      td {
+        border-right: 1px solid #ddd;
+      }
+
+      td:last-child {
+        border: none;
+      }
+
+      .wrapper {
+        margin: 20px;
+        padding: 20px;
+        background-color: #fff;
+      }
+
+      header {
+        text-align: left;
+        margin-bottom: 20px;
+        padding: 12px 0 0 12px;
+      }
+
+      .header__date {
+        margin: 10px 0 20px 0;
+      }
+
+      .heading {
+        color: rgb(32, 190, 173);
+        font-size: 44px;
+        font-weight: 700;
+        margin: 0 15px 10px 0;
+      }
+
+      .icon {
+        width: 1.3em;
+      }
+
+      .link-icon {
+        width: 1.6em;
+        margin: 4px 4px 0 0;
+      }
+
+      .time {
+        display: inline-block;
+      }
+
+      .time-from,
+      .time-to {
+        font-weight: bold;
+        font-size: 1.3rem;
+      }
+
+      .summary {
+        display: inline-block;
+      }
+
+      .summary__category {
+        display: inline-block;
+        font-size: 28px;
+        margin-right: 19px;
+      }
+
+      .summary__total-counts {
+        color: rgb(32, 190, 173);
+        font-size: 34px;
+        font-weight: 600;
+      }
+
+      .summary__title {
+        font-size: 36px;
+      }
+
+      .dashboard {
+        margin-top: 20px;
+      }
+
+      .attendance-container {
+        padding: 12px;
+        margin: 10px 0;
+      }
+
+      .sub-header {
+        color: rgb(32, 190, 173);
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+
+      .table-head {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+
+      .att-row {
+        border-bottom: 1px solid #ddd;
+        padding: 10px 0;
+      }
+
+      .employee-name {
+        font-size: 18px;
+        color: rgb(32, 190, 173);
+        margin-bottom: 5px;
+        font-style: bold;
+      }
+
+      .name {
+        font-size: 20px;
+      }
+
+      .att-status {
+        border-radius: 4px;
+        color: white;
+        padding: 6px;
+        text-align: center;
+      }
+
+      .check-time {
+        font-size: 16px;
+      }
+
+      .designation,
+      .department {
+        font-size: 16px;
+      }
+
+      .workDays {
+        width: 120px;
+      }
+
+      .time {
+        width: 160px;
+      }
+
+      .log {
+        padding: 5px 0;
+        border-bottom: 1px solid white;
+      }
+
+      .log:last-child {
+        border: none;
+      }
+
+      .log-time {
+        width: 100px;
+      }
+
+      .avoid-break-inside {
+        break-inside: avoid;
+      }
+
+     .page-break {
+        page-break-before: always;
+     }
+
+     .today-date {
+        font-size: 36px;
+     }
+
+      @media print {
+        .on-time,
+        .late,
+        .absenemployer,
+        employee .open,
+        .header,
+        .hold,
+        .reject,
+        .bg-offwhite,
+        .clr-lightgray,
+        .body-background {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+
+        .clr-lightgray {
+          color: rgba(0, 0, 0, 0.4);
+        }
+
+        .on-time,
+        .open {
+          background-color: #20bead;
+        }
+
+        .late,
+        .hold {
+          background-color: #fecf34;
+        }
+
+        .absence,
+        .reject {
+          background-color: #fa828b;
+        }
+
+        .on-leave {
+          background-color: #31304d;
+        }
+      }
+    </style>
+
+  </head>
+  
+  <body>
+    <header class="header">
+      <section class="header__date">
+        <h1 class="heading clr-accent f-18">
+          {% if reportType == 'current' %} {{ currentMonth }} {% else %} {{ previousMonth }} {% endif %}
+        </h1>
+      </section>
+      <section class="summary f-18">
+        <div class="summary__category">
+          <p class="summary__total-counts">
+            {% if presentCount %} {{ presentCount }} {% else %} - {% endif %}
+          </p>
+          <p class="summary__title">{{ present }}</p>
+        </div>
+        <div class="summary__category">
+          <p class="summary__total-counts">
+            {% if absentCount %} {{ absentCount }} {% else %} - {% endif %}
+          </p>
+          <p class="summary__title">{{ absent }}</p>
+        </div>
+        <div class="summary__category">
+          <p class="summary__total-counts">
+            {% if leavesCount %} {{ leavesCount }} {% else %} - {% endif %}
+          </p>
+          <p class="summary__title">{{ leaves }}</p>
+        </div>
+      </section>
+    </header>
+
+    <main class="dashboard">
+      <section class="attendance-container container">
+        <h2 class="sub-header">{{ attendance }}</h2>
+        <div class="table-container">
+            <table>
+            <thead>
+                <tr>
+                <th>{{ date }}</th>
+                <th>{{ shiftTime }}</th>
+                <th>{{ shiftStatus }}</th>
+                <th>{{ checkIn }}</th>
+                <th>{{ checkOut }}</th>
+                <th>{{ duration }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for attendance in attendances %}
+                <tr class="avoid-break-inside">
+                <td class="bold">{{ attendance.checkInDate }}</td>
+                <td>
+                    <span class="check-time bold">{{ attendance.fixedInTime }}</span> -
+                    <span class="check-time bold">{{ attendance.fixedOutTime }}</span>
+                </td>
+                <td>
+                    <p
+                    class="att-status {% if attendance.status == 'onTime' or attendance.status == 'full-day' %}on-time{% endif %} {% if attendance.status == 'late' or attendance.status == 'half-day' %}late{% endif %} {% if attendance.status == 'absent' %}absence{% endif %} {% if attendance.status == 'onLeave' %}on-leave{% endif %}"
+                    >
+                    {% if attendance.status == 'onTime' %} {{ onTime }} {% elif attendance.status ==
+                    'late' %} {{ late }} {% elif attendance.status == 'absent' %} {{ absent }} {%
+                    elif attendance.status == 'onLeave' %} {{ onLeave }} {% elif attendance.status
+                    == 'half-day' %} {{ halfDay }} {% elif attendance.status == 'full-day' %} {{ fullDay }} {%
+                    endif %}
+                    </p>
+                </td>
+                <td>
+                    {% if attendance.checkInTime != "-" and attendance.status != "absent" %}
+                    <p class="f-14">{{ attendance.checkInTime }}</p>
+                    <a
+                    class="link"
+                    href="https://www.google.com/maps/search/?api=1&query={{ attendance.checkInCoords }}"
+                    ><img
+                        src="data:image/png;base64,{{ mapImg }}"
+                        class="link-icon" /></a
+                    ><a
+                    class="link"
+                    href="{{ attendance.checkInPic }}"
+                    ><img
+                        src="data:image/png;base64,{{ cameraImg }}"
+                        class="link-icon"
+                    /></a>
+                    {% else %}
+                    <p class="f-14">-</p>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if attendance.checkOutTime != "-" and attendance.status != "absent" %}
+                    <p class="f-14">{{ attendance.checkOutTime }}</p>
+                    <a
+                    class="link"
+                    href="https://www.google.com/maps/search/?api=1&query={{ attendance.checkOutCoords }}"
+                    ><img
+                        src="data:image/png;base64,{{ mapImg }}"
+                        class="link-icon"
+                    /></a>
+                    <a
+                    class="link"
+                    href="{{ attendance.checkOutPic }}"
+                    ><img
+                        src="data:image/png;base64,{{ cameraImg }}"
+                        class="link-icon"
+                    /></a>
+                    {% else %}
+                    <p class="f-14">-</p>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if attendance.actualTime != "" %} {{attendance.actualTime}} {% else %} - {% endif %}
+                </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        </div>
+        </section>
+
+        <section class="attendance-container container page-break">
+        <h2 class="sub-header">{{ leaveRequests }}</h2>
+        <div class="table-container">
+            <table>
+            <thead>
+                <tr>
+                <th>{{ leaveType }}</th>
+                <th>{{ startDate }}</th>
+                <th>{{ endDate }}</th>
+                <th>{{ status }}</th>
+                <th>{{ reason }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for leave in leaves %}
+                    <tr class="avoid-break-inside">
+                        <td class="avoid-break-inside">{{ leave.leaveType }}</td>
+                        <td class="avoid-break-inside">{{ leave.startDate }}</td>
+                        <td class="avoid-break-inside">
+                            {% if leave.endDate != "" and leave.endDate != 'Invalid Date' %}
+                                {{ leave.endDate }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                        <td class="avoid-break-inside">
+                            {% if leave.status == 'open' %}
+                                <p class="att-status open">Open</p>
+                            {% else %}
+                                <p class="att-status hold">On Hold</p>
+                            {% endif %}
+                        </td>
+                        <td class="bold avoid-break-inside">{{ leave.reason }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        </div>
+        </section>
+
+        <section class="attendance-container container page-break">
+        <h2 class="sub-header">{{ logs }}</h2>
+        <div class="table-container">
+            <table>
+            <thead>
+                <tr>
+                <th>{{ date }}</th>
+                <th>{{ logs }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for logs in employeeLogs %}
+                <tr class="avoid-break-inside">
+                <td class="log-time">
+                    {% for log in logs.logs %}
+                    <p class="bold log">{{ log.time }}</p>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for log in logs.logs %}
+                    <p>
+                    {% if log.type == 'text' %} <p class="bold log">{{ log.logs }}</p> {% elif log.type == 'document' %}
+                    <a
+                        class="link document log"
+                        href="{{ log.logs }}"
+                        >&#128209;</a
+                    >
+                    {% else %}
+                    <a
+                        class="link log"
+                        href="{{ log.logs }}"
+                        ><img
+                        src="data:image/png;base64,{{ cameraImg }}"
+                        class="icon"
+                    /></a>
+                    {% endif %}
+                    </p>
+                    {% endfor %}
+                </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        </div>
+        </section>
+    </main>
+  </body>
+</html>

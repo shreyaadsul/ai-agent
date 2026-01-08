@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic|Open+Sans:300,400,500,700|Waiting+for+the+Sunrise|Shadows+Into+Light"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <style>
+      *,
+      *:before,
+      *:after {
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      th,
+      td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+      html {
+        font-size: 100%;
+      }
+      .flex-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+
+      .flex-container > section {
+        width: 30%; /* Adjust the width as needed */
+        margin-bottom: 20px;
+      }
+
+      @media screen and (max-width: 75em) {
+        .flex-container > section {
+          width: 100%;
+        }
+      }
+      body {
+        -webkit-font-smoothing: antialiased;
+        color: #333332;
+        font-family: Lora, serif;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 1.4;
+        text-rendering: optimizeLegibility;
+      }
+
+      .skill-set li:hover {
+        background: #3498db;
+      }
+
+      h1 {
+        color: rgba(0, 0, 0, 0.75);
+      }
+
+      .wrapper {
+        height: 100%;
+      }
+
+      .right {
+        float: right;
+        height: 100%;
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+      }
+
+      .name-hero {
+        background: rgba(0, 0, 0, 0.001);
+        bottom: 0;
+        height: 290px;
+        left: 0;
+        margin: auto;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 85%;
+      }
+
+      .me-img {
+        background: url(https://media-exp1.licdn.com/dms/image/C4E03AQGnLq_IB_mf8Q/profile-displayphoto-shrink_400_400/0/1631022739752?e=1648684800&v=beta&t=eICUjHeH_g9GQEItmEMK1j2gCADwqfjrlccSD_5za58)
+          no-repeat center center;
+        background-size: 100%;
+        background-position: 0px;
+        border-radius: 100%;
+        height: 150px;
+        margin: 0 auto;
+        position: relative;
+        width: 150px;
+      }
+
+      .name-hero h1 {
+        font-family: Open Sans, sans-serif;
+        font-size: 1.5em;
+        text-align: center;
+      }
+
+      .name-hero h1 em {
+        color: rgba(0, 0, 0, 0.3);
+        font-style: normal;
+        font-weight: 700;
+      }
+
+      .name-hero p {
+        color: rgba(0, 0, 0, 0.75);
+        font-size: 0.75em;
+        line-height: 1.5;
+        margin: 0 8px 0 0;
+        text-align: center;
+      }
+
+      .name-hero .name-text {
+        margin: 0 auto;
+        width: 85%;
+      }
+
+      .inner {
+        margin: 0 auto;
+        max-width: 975px;
+        padding: 3em;
+      }
+
+      .inner h1 {
+        font-size: 1.75em;
+      }
+
+      .inner p {
+        color: rgba(0, 0, 0, 0.5);
+      }
+
+      .inner p em {
+        color: rgba(0, 0, 0, 1);
+        font-style: normal;
+      }
+
+      .inner section {
+        margin: 100px auto;
+      }
+
+      ul {
+        list-style-type: none;
+        margin-top: -10px;
+        max-width: 570px;
+        padding: 0;
+      }
+
+      .skill-set li {
+        background: rgba(0, 0, 0, 0.75);
+        border-radius: 5px;
+        color: #fff;
+        display: inline-block;
+        list-style: none;
+        margin: 15px 15px 0 0;
+        padding: 10px;
+        text-align: justify;
+      }
+
+      @media screen and (max-width: 48em) {
+        .right,
+        .left {
+          float: none;
+          position: relative !important;
+          width: 100%;
+          min-height: 500px;
+        }
+
+        .handmade {
+          text-align: center !important;
+          margin-top: 0px !important;
+        }
+      }
+
+      @media screen and (max-width: 75em) {
+        body {
+          font-size: 16px;
+        }
+      }
+
+      @media screen and (max-width: 60em) {
+        body {
+          font-size: 14px;
+        }
+      }
+
+      .clearfix:after {
+        content: " ";
+        visibility: hidden;
+        display: block;
+        height: 0;
+        clear: both;
+      }
+
+      .handmade {
+        text-align: right;
+        margin-top: 100px;
+      }
+
+      .handmade em {
+        font-family: "Shadows Into Light", cursive;
+        font-size: 1.25em;
+        margin-left: 5px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrapper clearfix">
+      <div class="right">
+        <div class="inner">
+          <h1>Standard Operating Procedure</h1>
+          <h1>Daily Task <em>{{ taskname | title }}</em></h1>
+          
+          <section class="flex-container">
+            <div>
+              <h1>Task Information :</h1>
+              <p>Task Name | <em>{{ data.taskactivityname | title }}</em></p>
+              <p>
+                Task Description |<em>
+                  {{ data.taskactivitydescription | replace('_', ' ') | title }}</em
+                >
+              </p>
+              <p>
+                Task Instruction |
+                <em> {{ data.taskactivityinstruction | replace('_', ' ') | title }}</em>
+              </p>
+              <p>
+                Task Days |
+                <em
+                  >{% for day in data.daysinweektask %}{{ day | title }}{% if not loop.last %} | {%
+                  endif %}{% endfor %}</em
+                >
+              </p>
+            </div>
+            <div>
+              <h1>
+                Assignee :
+                <em>{{data.assignstrict1 | replace('_', ' ') | title}}</em>
+              </h1>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Employee Name</th>
+                    <th>Employee Number</th>
+                    <th>Language</th>
+                    <th>Shift Type</th>
+                    <th>Country Name</th>
+                    <th>Time Zone</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Check if employerself is not null and insert a row for it -->
+                  {% if employerself is not null %}
+                  <tr>
+                    <td>{{ employerself.fullName }} Self</td>
+                    <td>{{ employerself.employerNumber }}</td>
+                    <td>{{ employerself.language }}+ "Self"</td>
+                    <!-- You can replace this with an appropriate value for language -->
+                    <td></td>
+                    <!-- You can replace this with an appropriate value for shiftType -->
+                    <td>{{ employerself.countryName }}</td>
+                    <td>{{ employerself.timeZone }}</td>
+                  </tr>
+                  {% endif %}
+
+                  <!-- Loop through each employee data -->
+                  {% for employeedetails in employeedetails %}
+                  <tr>
+                    <td>{{ employeedetails.employeeName }}</td>
+                    <td>{{ employeedetails.employeeNumber }}</td>
+                    <td>{{ employeedetails.language }}</td>
+                    <td>{{ employeedetails.shiftType }}</td>
+                    <td>{{ employeedetails.countryName }}</td>
+                    <td>{{ employeedetails.timeZone }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </section>
+          <section class="flex-container">
+            <div>
+              <h1>Priority :<em> {{ data.priorityselected1| replace('_', ' ') | title }}</em></h1>
+            </div>
+            <div>
+              <h1>Proof:<em> {{ data.proofstrict1| replace('_', ' ') | title }}</em></h1>
+              <p>
+                Image |
+                <em>
+                  {% if data.noofproofphoto %}{{ data.noofproofphoto| replace('_', ' ') | title }}{%
+                  else %}0{% endif %}</em
+                >
+              </p>
+              <p>
+                Text |
+                <em
+                  >{% if data.noofprooftext %}{{ data.noofprooftext | replace('_', ' ') | title }}{%
+                  else %}0{% endif %}</em
+                >
+              </p>
+              <p>
+                Video |
+                <em
+                  >{% if data.noofproofvideo %}{{ data.noofproofvideo | replace('_', ' ') | title
+                  }}{% else %}0{% endif %}</em
+                >
+              </p>
+              <p>
+                Audio |
+                <em
+                  >{% if data.noofproofaudio %}{{ data.noofproofaudio | replace('_', ' ') | title
+                  }}{% else %}0{% endif %}</em
+                >
+              </p>
+              <p>
+                File |
+                <em
+                  >{% if data.noofprooffile %}{{ data.noofprooffile | replace('_', ' ') | title }}{%
+                  else %}0{% endif %}</em
+                >
+              </p>
+            </div>
+
+            <div>
+              <h1>Timings:</h1>
+              <p>
+                Activity Start Time |
+                <em>{{data.StartTime| replace('_', ' ') | title}}</em>
+              </p>
+              <p>
+                Task Duration |
+                <em>{{data.taskduration| replace('_', ' ') | title}}</em>
+              </p>
+              <p>
+                Frequency Per Day |
+                <em>{{data.nooftimesperday | replace('_', ' ')| title}}</em>
+              </p>
+            </div>
+          </section>
+          <section>
+            <h1>Notifications:</h1>
+            <p>
+              {% for notification in data.notifications %}{{ notification | replace('_', ' ') |
+              title }}{% if not loop.last %} | {% endif %}{% endfor %}
+            </p>
+          </section>
+          <section>
+            <div class="handmade">
+              <p>Business <em> Autowhat.app</em></p>
+              <p>12/1/2024</p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

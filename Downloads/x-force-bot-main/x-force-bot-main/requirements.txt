@@ -1,0 +1,8 @@
+flask
+langchain
+langchain-google-genai
+pinecone
+pymongo
+requests
+python-dotenv
+langgraph

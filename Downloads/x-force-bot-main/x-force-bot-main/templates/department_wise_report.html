@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="min-width=1600" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Roboto', sans-serif;
+        font-style: normal;
+      }
+
+      html,
+      body {
+        background-color: white;
+        color: black;
+      }
+
+      .clr-accent {
+        color: #20bead;
+      }
+
+      .clr-lightgray {
+        color: rgba(0, 0, 0, 0.4);
+      }
+
+      .bold {
+        font-weight: bold;
+      }
+
+      .fs-header {
+        font-size: 2rem;
+      }
+
+      .fs-subheader {
+        font-size: 1.85rem;
+      }
+
+      .fs-text {
+        font-size: 1.2rem;
+      }
+
+      .inline-block {
+        display: inline-block;
+      }
+
+      .report-icon {
+        position: absolute;
+        top: 0em;
+        right: 0.5em;
+      }
+
+      .attendance-container {
+        padding: 12px;
+        margin: 10px 0;
+      }
+
+      .table-container {
+        width: 100%;
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      th,
+      td {
+        padding: 10px;
+        text-align: left;
+      }
+
+      th {
+        background-color: rgba(32, 190, 173, 0.15);
+        border: 1px solid #ddd;
+        width: 20px;
+      }
+
+      tr {
+        border: 1px solid #ddd;
+      }
+
+      td {
+        border-right: 1px solid #ddd;
+      }
+
+      td:last-child {
+        border: none;
+      }
+
+      .wrapper {
+        margin: 20px;
+        padding: 20px;
+        background-color: #000;
+      }
+
+      header {
+        text-align: left;
+        margin-bottom: 20px;
+        padding: 12px 0 0 12px;
+      }
+
+      .header__date {
+        margin: 10px 0 10px 0;
+      }
+
+      .heading {
+        color: rgb(32, 190, 173);
+        font-size: 44px;
+        font-weight: 700;
+        margin: 0 15px 10px 0;
+      }
+
+      .icon {
+        width: 1.3em;
+      }
+
+      .link-icon {
+        width: 1.6em;
+        margin: 4px 4px 0 0;
+      }
+
+      .time {
+        display: inline-block;
+      }
+
+      .time-from,
+      .time-to {
+        font-weight: bold;
+        font-size: 1.3rem;
+      }
+
+      .summary {
+        display: flex;
+      }
+
+      .summary__category {
+        /* display: inline-block; */
+        font-size: 28px;
+        margin-right: 19px;
+      }
+
+      .summary__total-counts {
+        color: rgb(32, 190, 173);
+        font-size: 34px;
+        font-weight: 600;
+      }
+
+      .summary__title {
+        font-size: 36px;
+      }
+
+      .dashboard {
+        /* margin-top: 20px; */
+        margin: 20px 10px 10px 10px;
+      }
+
+      .attendance-container {
+        padding: 12px;
+        margin: 10px 0;
+      }
+
+      .sub-header {
+        color: rgb(32, 190, 173);
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+
+      .table-head {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+
+      .att-row {
+        border-bottom: 1px solid #ddd;
+        padding: 10px 0;
+      }
+
+      .employee-name {
+        font-size: 18px;
+        color: rgb(32, 190, 173);
+        margin-bottom: 5px;
+        font-style: bold;
+      }
+
+      .week-off {
+        background-color: #7ab2d3;
+      }
+
+      .name {
+        font-size: 20px;
+      }
+
+      .att-status {
+        border-radius: 4px;
+        color: black;
+        padding: 6px;
+        text-align: center;
+      }
+
+      .check-time {
+        font-size: 16px;
+      }
+
+      .designation,
+      .department {
+        font-size: 16px;
+      }
+
+      .workDays {
+        width: 120px;
+      }
+
+      .time {
+        width: 360px;
+      }
+
+      .log {
+        padding: 5px 0;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .log:last-child {
+        border: none;
+      }
+
+      .log-time {
+        width: 120px;
+      }
+
+      .avoid-break-inside {
+        break-inside: avoid;
+      }
+
+      .page-break {
+        page-break-before: always;
+      }
+
+      .today-date {
+        font-size: 36px;
+      }
+
+      @media print {
+        .on-time,
+        .late,
+        .absenemployer,
+        employee .open,
+        .header,
+        .hold,
+        .reject,
+        .week-off,
+        .bg-offwhite,
+        .clr-lightgray,
+        .body-background {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+
+        .clr-lightgray {
+          color: rgba(0, 0, 0, 0.4);
+        }
+
+        .on-time,
+        .open {
+          background-color: #20bead;
+        }
+
+        .late,
+        .hold {
+          background-color: #fecf34;
+        }
+
+        .absence,
+        .reject {
+          background-color: #fa828b;
+        }
+
+        .week-off {
+          background-color: #7ab2d3;
+        }
+
+        .on-leave {
+          background-color: #31304d;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="bg-offwhite">
+      <header class="header">
+        <section class="header__date">
+          <h1 class="heading clr-accent inline-block">{{ companyName }}</h1>
+          <div class="time-frame">
+            <div class="time inline-block">
+              <img src="data:image/png;base64,{{ calendarImg }}" class="icon" />
+              <span class="time-from">{{ startDate }}</span>
+              <span class="clr-lightgray fs-header">&nbsp;-&nbsp;</span>
+              <span class="time-to">{{ endDate }}</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="summary f-18">
+          <div class="summary__category">
+            <p class="summary__title">{{ employee }}</p>
+            <p class="summary__total-counts">
+              {% if employeesCount %} {{ employeesCount }} {% else %} - {%
+              endif%}
+            </p>
+          </div>
+
+          {% if totalDays %}
+          <div class="summary__category">
+            <p class="summary__title">{{ totalDaysLabel }}</p>
+            <p class="summary__total-counts">{{ totalDays }}</p>
+          </div>
+          {% endif %}
+        </section>
+      </header>
+
+      <main class="dashboard">
+        {% for department in employees %}
+        <section class="attendance-container container">
+          <h2 class="sub-header">{{ department.departmentName }}</h2>
+          <p>{{ department.departmentHead.name }}</p>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>{{ employee }}</th>
+                  <th>{{ date }}</th>
+                  <th>{{ shiftTime }}</th>
+                  <th>{{ shiftStatus }}</th>
+                  <th>{{ checkIn }}</th>
+                  <th>{{ checkOut }}</th>
+                  <th>{{ duration }}</th>
+                </tr>
+              </thead>
+              {% for att in department.attendances %}
+              <tbody>
+                <tr class="avoid-break-inside">
+                  <td>
+                    <p class="name bold clr-accent">{{ att.employeeName }}</p>
+                    <p class="number bold">{{ att.employeeNumber }}</p>
+                  </td>
+                  <td class="bold">{{ att.checkInDate }}</td>
+                  <td>
+                    <span class="check-time bold">{{ att.fixedInTime }}</span> -
+                    <span class="check-time bold">{{ att.fixedOutTime }}</span>
+                  </td>
+                  <td>
+                    <p
+                      class="att-status {% if att.status == 'onTime' or att.status == 'full-day' %}on-time{% endif %} {% if att.status == 'late' or att.status == 'half-day' %}late{% endif %} {% if att.status == 'absent' %}absence{% endif %} {% if att.status == 'onLeave' %}on-leave{% endif %} {% if att.status == 'week-off' %}week-off{% endif %}"
+                    >
+                      {% if att.status == 'onTime' %} {{ onTime }} {% elif
+                      att.status == 'late' %} {{ late }} {% elif att.status ==
+                      'absent' %} {{ absent }} {% elif att.status == 'onLeave'
+                      %} {{ onLeave }} {% elif att.status == 'half-day' %} {{
+                      halfDay }} {% elif att.status == 'full-day' %} {{ fullDay
+                      }} {% elif att.status == 'week-off' %} Week Off {% endif
+                      %}
+                    </p>
+                  </td>
+                  <td>
+                    {% if att.checkInTime != "-" and att.status != "absent" %}
+                    <p class="f-14">{{ att.checkInTime }}</p>
+                    <a
+                      class="link"
+                      href="https://www.google.com/maps/search/?api=1&query={{ att.checkInCoords }}"
+                      ><img
+                        src="data:image/png;base64,{{ mapImg }}"
+                        class="link-icon" /></a
+                    ><a class="link" href="{{ att.checkInPic }}"
+                      ><img
+                        src="data:image/png;base64,{{ cameraImg }}"
+                        class="link-icon"
+                    /></a>
+                    {% else %}
+                    <p class="f-14">-</p>
+                    {% endif %}
+                  </td>
+                  <td>
+                    {% if att.checkOutTime != "-" and att.status != "absent" %}
+                    <p class="f-14">{{ att.checkOutTime }}</p>
+                    {% if att.checkOutCoords != "-" %}
+                    <a
+                      class="link"
+                      href="https://www.google.com/maps/search/?api=1&query={{ att.checkOutCoords }}"
+                      ><img
+                        src="data:image/png;base64,{{ mapImg }}"
+                        class="link-icon"
+                    /></a>
+                    {% endif %} {% if att.checkOutPic != "-" %}
+                    <a class="link" href="{{ att.checkOutPic }}"
+                      ><img
+                        src="data:image/png;base64,{{ cameraImg }}"
+                        class="link-icon"
+                    /></a>
+                    {% endif %} {% else %}
+                    <p class="f-14">-</p>
+                    {% endif %}
+                  </td>
+                  <td>
+                    {% if att.actualTime != "" %} {{att.actualTime}} {% else %}
+                    - {% endif %}
+                  </td>
+                </tr>
+              </tbody>
+              {% endfor %}
+            </table>
+          </div>
+        </section>
+        {% endfor %}
+      </main>
+    </div>
+  </body>
+</html>

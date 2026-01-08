@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+      />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif; 
+        }
+    
+        body {
+            background-color: #f8f8f8;
+        }
+    
+        .attendance-container {
+            background-color: #f8f8f8;
+            padding: 12px;
+            margin: 10px 0;
+        }
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            width: 20px;
+        }
+
+        .wrapper {
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    
+        header {
+            text-align: left;
+            margin-bottom: 20px;
+            padding: 12px 0 0 12px;
+        }
+    
+        .heading {
+            color: rgb(32, 190, 173);
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .summary {
+            display: inline-block;
+            position: absolute;
+            top: 10px;
+            right: 35px;
+        }
+        
+        .summary__category {
+            text-align: center;
+            font-size: 22px
+        }
+        
+        .summary__total-counts {
+            color: rgb(32, 190, 173);
+            font-size: 22px;
+            font-weight: 600;
+        }
+        
+        .summary__title {
+            color: #666;
+            font-size: 20px;
+        }
+        
+        .dashboard {
+            margin-top: 20px;
+        }
+        
+        .attendance-container {
+            background-color: #f8f8f8;
+            padding: 12px;
+            margin: 10px 0;
+        }
+        
+        .sub-header {
+            color: rgb(32, 190, 173);
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .table-head {
+            color: #333;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .att-row {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+        
+        .employee-name {
+            font-size: 18px;
+            color: rgb(32, 190, 173);
+            margin-bottom: 5px;
+            font-style:bold; 
+        }
+
+        .name {
+          font-size: 20px; 
+        }
+
+        .number {
+          color: #333;
+        }
+        
+        .row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+        }
+        
+        .check-time {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .designation,
+        .department {
+            font-size: 16px;
+            color: #333;
+        }
+    </style>
+    
+  </head>
+  <body>
+    <header class="header">
+      <section>
+        <h1 class="heading clr-accent">{{ companyName }}</h1>
+      </section>
+      <section class="summary">
+        <div class="summary__category">
+          <p class="summary__total-counts">
+            {% if employeesCount %} {{ employeesCount }} {% else %} - {% endif %}
+          </p>
+          <p class="summary__title clr-lightgray">{{ employeesLabel }}</p>
+        </div>
+      </section>
+    </header>
+
+    <main class="dashboard">
+        <section class="attendance-container container">
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>{{ employee }}</th>
+                  <th>{{ position }}</th>
+                  <th>{{ shiftTimings }}</th>
+                  <th>{{ shiftType }}</th>
+                  <th>{{ joiningDate }}</th>
+                  <th>{{ language }}</th>
+                  <th>{{ natureOfTime }}</th>
+                  <th>{{ countryName }}</th>
+                  <th>{{ timeZone }}</th>
+                  <th>{{ locations }}</th>
+                  <th>{{ proof }}</th>
+                  <th>{{ workDays }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for employee in employees %}
+                  <tr>
+                    <td class="employee-name">
+                      <p class="name">{{ employee.employeeName }}</p>
+                      <p class="number">{{ employee.employeePhone }}</p>
+                    </td>
+                    <td class="designation">
+                      <p class="designation" >{{ employee.designation }}</p>
+                      <p class="department">{{ employee.department }}</p>
+                    </td>
+                    <td class="time">
+                      <span class="check-time">{{ employee.checkIn }}</span> -
+                      <span class="check-time">{{ employee.checkOut }}</span>
+                    </td>
+                    <td class="shiftType">
+                      <span class="shiftType">{{ employee.shiftType }}</span> 
+                    </td>
+                    </td>
+                    <td class="joiningDate">
+                      {% if employee.joiningDate != 'Invalid Date' %}
+                      <p>{{ employee.joiningDate }}</p>
+                      {% else %}
+                      <p>-</p>
+                      {% endif %}
+                    </td>
+                    <td class="language">
+                      <p>{{employee.language}}</p>
+                    </td>
+                    <td class="natureOfTime">
+                      <p>{{employee.natureOfTime}}</p>
+                    </td>
+                    <td class="countryName">
+                      <p>{{employee.countryName}}</p>
+                    </td>
+                    <td class="timeZone">
+                        <p>{{employee.timeZone}}</p>
+                    </td>
+                    <td class="locations">
+                      {% for location in employee.locations %}
+                        <p>{{ location.name }}</p>
+                      {% endfor %}
+                    </td>
+                    <td class="proof">    
+                      <span>
+                        {% if employee.location %} Location | {% endif %}
+                        {% if employee.image %} Image | {% endif %}
+                        {% if employee.logs %} Logs {% endif %}
+                      </span>
+                    </td>
+                    <td class="workDays">
+                      {% for dayNumber in employee.workDays %}
+                      <span>
+                        {% if dayNumber == 0 %} Su
+                        {% elseif dayNumber == 1 %} M
+                        {% elseif dayNumber == 2 %} T
+                        {% elseif dayNumber == 3 %} W
+                        {% elseif dayNumber == 4 %} Tr
+                        {% elseif dayNumber == 5 %} F
+                        {% elseif dayNumber == 6 %} S
+                        {% endif %}
+                      </span>
+                    {% endfor %}
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </section>
+    </main>
+  </body>
+</html>

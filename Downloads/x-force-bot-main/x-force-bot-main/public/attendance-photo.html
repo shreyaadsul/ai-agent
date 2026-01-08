@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Camera and Location Capture</title>
+
+  <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f0f0f0;
+    }
+
+    .container {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 24px;
+      max-width: 480px;
+      width: 100%;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    #webcam,
+    #capturedImage {
+      width: 100%;
+      border-radius: 4px;
+    }
+
+    button {
+      width: 100%;
+      padding: 8px;
+      border: none;
+      border-radius: 4px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    #captureBtn {
+      background-color: #ef4444;
+      margin-top: 8px;
+    }
+
+    #captureBtn:hover {
+      background-color: #dc2626;
+    }
+
+    #rejectBtn {
+      background-color: #4b5563;
+      margin-right: 8px;
+    }
+
+    #rejectBtn:hover {
+      background-color: #374151;
+    }
+
+    #confirmBtn {
+      background-color: #b91c1c;
+    }
+
+    #confirmBtn:hover {
+      background-color: #991b1b;
+    }
+
+    #confirmBtn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .button-group {
+      display: flex;
+      margin-top: 16px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #locationStatus {
+      color: #9ca3af;
+      margin-bottom: 16px;
+    }
+
+    #toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #10b981;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 4px;
+      display: none;
+    }
+
+    #location {
+      position: absolute;
+      bottom: 4em;
+      left: 2em;
+    }
+
+    #location p {
+      margin: 0;
+      margin-top: 4px;
+      font-weight: bold;
+    }
+
+    #webcam,
+    #canvas {
+      width: 100%;
+      height: auto;
+      max-width: 640px;
+      max-height: 480px;
+      object-fit: contain;
+    }
+
+    #capturedImage {
+      width: 100%;
+      height: auto;
+      max-width: 640px;
+      max-height: 480px;
+      object-fit: contain;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Camera and Location Capture</h1>
+
+    <video id="webcam" autoplay playsinline width="640" height="480"></video>
+    <canvas id="canvas" class="d-none"></canvas>
+    <button id="captureBtn">Capture Photo</button>
+
+    <p id="location"></p>
+
+    <img id="capturedImage" class="hidden" alt="Captured" />
+    <div class="button-group hidden" id="buttonGroup">
+      <button id="rejectBtn">Re Click</button>
+      <button id="confirmBtn">Send</button>
+    </div>
+  </div>
+  <div id="toast"></div>
+
+  <script>
+    const webcamElement = document.getElementById("webcam");
+    const canvasElement = document.getElementById("canvas");
+    const webcam = new Webcam(webcamElement, "user", canvasElement);
+
+    startWebCam();
+
+    let location2 = {};
+
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const lat = position.coords.latitude;
+          const long = position.coords.longitude;
+
+          location2.latitude = lat;
+          location2.longitude = long;
+
+          const locationEl = document.getElementById("location");
+
+          locationEl.innerHTML = `<p>Latitude: ${lat}</p><p>Longitude: ${long}</p><p>Date: ${new Date().toLocaleString(
+            "en-GB"
+          )}</p>`;
+        },
+
+        // Error callback
+        function (error) {
+          switch (error.code) {
+            case error.PERMISSION_DENIED:
+              alert("User denied the request for Geolocation.");
+              break;
+            case error.POSITION_UNAVAILABLE:
+              alert("Location information is unavailable.");
+              break;
+            case error.TIMEOUT:
+              alert("The request to get user location timed out.");
+              break;
+            case error.UNKNOWN_ERROR:
+              alert("An unknown error occurred.");
+              break;
+          }
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 5000,
+          maximumAge: 0,
+        }
+      );
+    } else {
+    }
+
+    function startWebCam() {
+      canvasElement.innerHTML = "";
+
+      canvasElement.style.display = "block";
+
+      webcam
+        .start()
+        .then((result) => {
+
+          // navigator.permissions.query({ name: "geolocation" }).then((res) => {
+          //   if (result.state === "granted") {
+          //     alert(result.state);
+          //   } else if (result.state === "prompt") {
+          //     navigator.geolocation.getCurrentPosition((position) => {
+          //       const lat = position.coords.latitude;
+          //       const long = position.coords.longitude;
+
+          //       location2.latitude  = lat
+          //       location2.longitude = long
+
+          //       const location = document.getElementById("location");
+
+          //       location.innerHTML = `<p>Latitude: ${lat}</p><p>Longitude: ${long}</p><p>Date: ${new Date().toLocaleString(
+          //         "en-GB"
+          //       )}</p>`;
+          //     });
+          //   } else if (result.state === "denied") {
+          //     alert(result.state);
+          //   }
+          // });
+        })
+        .catch((err) => {
+          alert("Failed to start web camera");
+        });
+    }
+
+    const captureButton = document.getElementById("captureBtn");
+    const rejectButton = document.getElementById("rejectBtn");
+    const groupButton = document.getElementById("buttonGroup");
+    const confirmButton = document.getElementById("confirmBtn");
+    const locationStatus = document.getElementById("locationStatus");
+    const toast = document.getElementById("toast");
+
+    captureButton.addEventListener("click", async () => {
+      var picture = webcam.snap();
+      webcam.stop();
+
+      captureButton.style.display = "none";
+      buttonGroup.style.display = "flex";
+
+      rejectButton.addEventListener("click", () => {
+        captureButton.style.display = "block";
+        buttonGroup.style.display = "none";
+
+        canvasElement.style.display = "none";
+
+        startWebCam();
+      });
+
+      confirmButton.addEventListener("click", async () => {
+        confirmButton.setAttribute("disabled", true);
+        confirmButton.disabled = true;
+        confirmButton.style.pointerEvents = "none";
+
+        const res = await uploadPhoto(picture, location2);
+
+        if (res.ok) {
+          const result = await res.json();
+
+          if (confirm("Photo successfully uploaded")) {
+            window.location =
+              "https://api.whatsapp.com/send?phone=918448789350";
+            window.close();
+          }
+        } else {
+          alert("Failed to upload photo");
+        }
+
+        captureButton.style.display = "block";
+        buttonGroup.style.display = "none";
+
+        canvasElement.style.display = "none";
+
+        startWebCam();
+      });
+    });
+
+    async function uploadPhoto(capturedImage, location) {
+      const [, , , employeeNumber, attendanceType] =
+        window.location.pathname.split("/");
+
+      if (!capturedImage) {
+        alert("No image captured");
+        return;
+      }
+
+      const base64Image = capturedImage.split(",")[1];
+
+      try {
+        return await fetch(
+          "/attendance_callbackurl/upload-attendance-photo",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              image: base64Image,
+              employeeNumber,
+              attendanceType,
+              latitude: location.latitude,
+              longitude: location.longitude,
+            }),
+          }
+        );
+      } catch (error) {
+        console.error("Error uploading image:", error);
+        alert("Error uploading image: " + error.message);
+      }
+    }
+  </script>
+</body>
+
+</html>
