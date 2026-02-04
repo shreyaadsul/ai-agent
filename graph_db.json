@@ -1,0 +1,42 @@
+{
+  "nodes": {
+    "76071a20": {
+      "label": "AttendanceEvent",
+      "employee_id": "loukik",
+      "input": "hello",
+      "timestamp": 1770213158.8934364,
+      "decision": "Notify Manager"
+    },
+    "b6a3f986": {
+      "label": "AttendanceEvent",
+      "employee_id": "loukik",
+      "input": "Shreya",
+      "timestamp": 1770213166.6029396,
+      "decision": "Notify Manager"
+    },
+    "7ed3181a": {
+      "label": "AttendanceEvent",
+      "employee_id": "shreya",
+      "input": "i want to ask you a question",
+      "timestamp": 1770213306.2399042,
+      "decision": "Notify Manager"
+    }
+  },
+  "edges": [
+    {
+      "source": "loukik",
+      "relation": "HAS_EVENT",
+      "target": "76071a20"
+    },
+    {
+      "source": "loukik",
+      "relation": "HAS_EVENT",
+      "target": "b6a3f986"
+    },
+    {
+      "source": "shreya",
+      "relation": "HAS_EVENT",
+      "target": "7ed3181a"
+    }
+  ]
+}
